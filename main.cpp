@@ -13,28 +13,35 @@
 const char* filename = "input.txt";
 String text = NULL;
 
-void input (String str, int* len);
+void input (String* str, int* len);
 void output (String* arr, int cnt);
 int slice (String str, int* len);
 int comp (const void* a, const void* b);
+void set(String* arr, String str, int cnt, int len);
 
 int main () {
     int len = 0, cnt = 0;
 
     //setlocale(LC_CTYPE, "rus");
-    input(text, &len);
-    printf("%s", text);
+    input(&text, &len);
     cnt = slice(text, &len);
+
+    printf("%s\n", text);
+
     String* arr = NULL;
     arr = (String*)malloc(cnt * sizeof(String*));
+
+    set(arr, text, cnt, len);
     qsort(arr, cnt, sizeof(String*), comp);
+
+    output(arr, cnt);
 
 
 
     return 0;
 }
 
-void input (String str, int* len) {
+void input (String* str, int* len) {
     FILE* file = fopen(filename, "r");
     assert(file != NULL && "No such file");
 
@@ -42,10 +49,9 @@ void input (String str, int* len) {
     assert((fstat(fileno(file), &out) != -1) && "Error in file");
     *len = round(out.st_size / sizeof(char));
 
-    str = Init(*len);
-    str = {};
+    *str = (String)malloc(sizeof(char) * (*len));
 
-    fread(str, sizeof(char), (size_t)*len, file);;
+    fread(*str, sizeof(char), (size_t)(*len), file);;
 
     fclose(file);
 }
@@ -63,7 +69,6 @@ int slice (String str, int* len) {
     bool isonLine = false;
 
     for (int i = 0; i < *len; i++) {
-        //printf("%c\n", str[i]);
         if (isonLine) {
             if (str[i] == '\0' || str[i] == '\n') {
                 str[i] = '\0';
@@ -72,8 +77,7 @@ int slice (String str, int* len) {
             }
             str[i - delta] = str[i];
         } else {
-            printf("ok\n");
-            if (str[i] == '\0' || str[i] == ' ' || str[i] == '\t' || str[i] == '*') {
+            if (str[i] == '\0' || str[i] == '\n' || str[i] == ' ' || str[i] == '\t' || str[i] == '*') {
                 delta++;
             } else {
                 str[i - delta] = str[i];
@@ -91,4 +95,16 @@ int comp (const void* a, const void* b) {
     return strCmp(*((String*)a), *((String*)b));
 }
 
-
+void set(String* arr, String str, int cnt, int len) {
+    int iter = 0;
+    bool isonLine = true;
+    for (int i = 0; i < len && iter < cnt; i++) {
+        if (isonLine) {
+            arr[iter++] = str + i;
+            isonLine = false;
+        }
+        if (str[i] == '\0') {
+            isonLine = true;
+        }
+    }
+}

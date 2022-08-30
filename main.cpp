@@ -1,5 +1,5 @@
-#include "lib/strlib/strlib.h"
-#include "lib/strAlg/strAlg.h"
+#include "strlib.h"
+#include "strAlg.h"
 
 #include <stdio.h>
 #include <stdlib.h>

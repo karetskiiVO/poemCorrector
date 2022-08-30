@@ -1,5 +1,5 @@
 #include "strAlg.h"
-#include "../strlib/strlib.h"
+#include "strlib.h"
 
 void merge_sort (String** begin, String** end, int (*comp)(String, String), String* buf) {
     if (end - begin == 1) {

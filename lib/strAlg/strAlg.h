@@ -3,7 +3,7 @@
 
 #include "../strlib/strlib.h"
 
-void merge_sort(String** begin, String** end, int comp(String, String), String* buf);
+void merge_sort(String** begin, String** end, int (*comp)(String, String), String* buf);
 
 
 #endif

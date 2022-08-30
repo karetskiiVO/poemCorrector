@@ -4,11 +4,8 @@ CC = g++
 #flags:
 CFLAGS  = -g -Wall
 
-strlib_ = -I/lib/strlib/strlib.cpp
-strAlg_ = -I/lib/strAlg/strAlg.cpp
-
 #sources of input
-SOURCES = main.cpp  $(strlib_)  $(strAlg_)
+SOURCES = main.cpp  ./lib/strAlg/strAlg.cpp  ./lib/strlib/strlib.cpp
 
 #sources of output
 EXECUTABLE = corrector

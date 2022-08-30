@@ -11,7 +11,7 @@ strAlg_ = -I/lib/strAlg/strAlg.cpp
 SOURCES = main.cpp  $(strlib_)  $(strAlg_)
 
 #sources of output
-EXECUTABLE = calc
+EXECUTABLE = corrector
 
 all:
 	$(CC) $(SOURCES) $(CFLAGS) -MD -o $(EXECUTABLE) -lm

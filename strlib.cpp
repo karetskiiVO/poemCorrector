@@ -25,7 +25,7 @@ int strLen (const String str) {
 }
 
 String strCpy (String s1, const String s2) {
-    assert(s1 != NULL && s2 != NULL && "the string mustnt be NULL\n");
+    //assert(s1 != NULL && s2 != NULL && "the string mustnt be NULL\n");
 
     int i = 0;
 

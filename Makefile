@@ -5,7 +5,7 @@ CC = g++
 CFLAGS  = -g -Wall
 
 #sources of input
-SOURCES = main.cpp  ./lib/strAlg/strAlg.cpp  ./lib/strlib/strlib.cpp
+SOURCES = main.cpp  strAlg.cpp  strlib.cpp
 
 #sources of output
 EXECUTABLE = corrector

@@ -1,5 +1,5 @@
-#include "strlib.h"
-#include "strAlg.h"
+#include "lib/strlib/strlib.h"
+#include "lib/strAlg/strAlg.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,7 +8,8 @@
 int main () {
     String arr[] = {"aboba", "Boba", "biba", "abc", "z"};
     String arr_buf[5] = {0};
-    String* arr_mem[] = (String*)malloc(5 * sizeof(String*));
+    String** arr_mem;
+    arr_mem = (String**)malloc(5 * sizeof(String*));
     for (int i = 0; i < 5; i++) {
         arr_mem[i] = &arr[i];
     }

@@ -4,8 +4,8 @@ CC = g++
 #flags:
 CFLAGS  = -g -Wall
 
-strlib_ = lib/strlib/strlib.cpp
-strAlg_ = lib/strAlg/strAlg.cpp
+strlib_ = -I/lib/strlib/strlib.cpp
+strAlg_ = -I/lib/strAlg/strAlg.cpp
 
 #sources of input
 SOURCES = main.cpp  $(strlib_)  $(strAlg_)

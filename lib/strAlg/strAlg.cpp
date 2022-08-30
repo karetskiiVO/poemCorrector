@@ -1,35 +1,35 @@
 #include "strAlg.h"
-#include "strlib.h"
+#include "../strlib/strlib.h"
 
 void merge_sort (String** begin, String** end, int (*comp)(String, String), String* buf) {
     if (end - begin == 1) {
         return;
     }
-    int len = begin - end;
+    int len = end - begin;
     String** med = len / 2 + begin;
     String** med_c = med;
 
-    merge_sort(begin, med, comp);
-    merge_sort(med, end, comp);
+    merge_sort(begin, med, comp, buf);
+    merge_sort(med, end, comp, buf);
 
     for (int iter = 0; iter < len; iter++) {
         if (begin < med_c && med < end) {
             if(comp(**begin, **med) > 0) {
-                buf[i] = **med++;
+                strCpy(buf[iter], **med++);
             } else {
-                buf[i] = **begin++;
+                strCpy(buf[iter], **begin++);
             }
         } else if (begin < med_c) {
-            buf[i] = **begin++;
+            strCpy(buf[iter], **begin++);
         } else {
-            buf[i] = **med++;
+            strCpy(buf[iter], **med++);
         }
     }
 
     begin = end - len;
 
     for (int i = 0; i < len; i++) {
-        **(begin + i) = buf[i];
+        strCpy(**(begin + i), buf[i]);
     } 
 }
 

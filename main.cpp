@@ -26,10 +26,13 @@ int main () {
     input(&text, &len);
     cnt = slice(text, &len);
 
-    printf("%s\n", text);
+    //printf("%s\n", text);
+    printf("%d", cnt);
 
     String* arr = NULL;
     arr = (String*)malloc(cnt * sizeof(String*));
+
+    printf("%d", cnt);
 
     set(arr, text, cnt, len);
     qsort(arr, cnt, sizeof(String*), comp);
@@ -62,7 +65,7 @@ void output (String* arr, int cnt) {
     }
 }
 
-int slice (String str, int* len) {
+int slice (String const str, int* len) {
     int delta = 0;
     int cnt   = 0;
 
@@ -74,10 +77,14 @@ int slice (String str, int* len) {
                 str[i] = '\0';
                 cnt++;
                 isonLine = false;  
+                printf("%d\n", cnt);
             }
             str[i - delta] = str[i];
         } else {
-            if (str[i] == '\0' || str[i] == '\n' || str[i] == ' ' || str[i] == '\t' || str[i] == '*') {
+            if (str[i] == ' ' || str[i] == '\0' || str[i] == '\n' || str[i] == '\t' || str[i] == '*') {
+                if (str[i] == ' ') {
+                    printf("ok\n");
+                }
                 delta++;
             } else {
                 str[i - delta] = str[i];

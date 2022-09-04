@@ -22,20 +22,17 @@ void set(String* arr, String str, int cnt, int len);
 int main () {
     int len = 0, cnt = 0;
 
-    //setlocale(LC_CTYPE, "rus");
+    setlocale(LC_CTYPE, "rus");
     input(&text, &len);
-    cnt = slice(text, &len);
 
-    //printf("%s\n", text);
-    printf("%d", cnt);
+    cnt = slice(text, &len);
 
     String* arr = NULL;
     arr = (String*)malloc(cnt * sizeof(String*));
 
-    printf("%d", cnt);
-
     set(arr, text, cnt, len);
     qsort(arr, cnt, sizeof(String*), comp);
+
 
     output(arr, cnt);
 
@@ -77,14 +74,10 @@ int slice (String const str, int* len) {
                 str[i] = '\0';
                 cnt++;
                 isonLine = false;  
-                printf("%d\n", cnt);
             }
             str[i - delta] = str[i];
         } else {
             if (str[i] == ' ' || str[i] == '\0' || str[i] == '\n' || str[i] == '\t' || str[i] == '*') {
-                if (str[i] == ' ') {
-                    printf("ok\n");
-                }
                 delta++;
             } else {
                 str[i - delta] = str[i];

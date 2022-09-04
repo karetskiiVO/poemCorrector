@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include <assert.h>
+#include <ctype.h>
 
 #define NULLBYTE '\0'
 
@@ -73,10 +74,10 @@ int strCmp (const String s1, const String s2) {
 
     for (int i = 0; s1[i] != NULLBYTE || s2[i] != NULLBYTE; i++) {
         if (!(s1[i] != NULLBYTE && s2[i] != NULLBYTE)) {
-            return s1[i] - s2[i]; 
+            return tolower(s1[i]) - tolower(s2[i]); 
         }
         if (s1[i] != s2[i]) {
-            return s1[i] - s2[i];
+            return tolower(s1[i]) - tolower(s2[i]);
         }
     }
 

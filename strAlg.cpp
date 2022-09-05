@@ -36,7 +36,7 @@ void heapBalance (String* arr, int len, int x, int (*cmp)(const void*, const voi
     }
 
     if (x2 >= len) {
-        if (cmp(arr[x], arr[x1]) >=0){
+        if (cmp(arr[x], arr[x1]) <=0){
             strSwap(&arr[x], &arr[x1]);
         }
         return;
@@ -47,10 +47,10 @@ void heapBalance (String* arr, int len, int x, int (*cmp)(const void*, const voi
     heapBalance(arr, len, x1, cmp);
     heapBalance(arr, len, x2, cmp);
     printf("ok\n");
-    if (cmp(arr[x], arr[x1]) >= 0){
+    if (cmp(arr[x], arr[x1]) <= 0){
         strSwap(&arr[x], &arr[x1]);
     }
-    if (cmp(arr[x], arr[x2]) >= 0){
+    if (cmp(arr[x], arr[x2]) <= 0){
         strSwap(&arr[x], &arr[x2]);
     }
 }

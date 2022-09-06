@@ -31,11 +31,11 @@ int main () {
     arr = (String*)malloc(cnt * sizeof(String*));
 
     set(arr, text, cnt, len);
-    //qsort(arr, cnt, sizeof(String*), comp);
-    strHeapSort(arr, cnt, comp);
+    qsort(arr, cnt, sizeof(String*), comp);
+    //strHeapSort(arr, cnt, comp);
 
     output(arr, cnt);
-
+    
     return 0;
 }
 

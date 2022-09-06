@@ -10,7 +10,7 @@
 #define NULLBYTE '\0'
 
 String Init (int len) {
-    return (String)malloc(len * sizeof(char));
+    return (String) malloc(len * sizeof(char));
 }
 
 int strLen (const String str) {
@@ -71,8 +71,8 @@ char* strrChr (const String str, int ch) {
 
 int strCmp (const String s1, const String s2) {
     assert(s1 != NULL && s2 != NULL && "the string mustnt be NULL\n");
-
-    for (int i = 0; s1[i] != NULLBYTE || s2[i] != NULLBYTE; i++) {
+    
+    for (int i = 0; s1[i] != NULLBYTE || s2[i] != NULLBYTE; i++) { // segmentation in for 
         if (!(s1[i] != NULLBYTE && s2[i] != NULLBYTE)) {
             return tolower(s1[i]) - tolower(s2[i]); 
         }

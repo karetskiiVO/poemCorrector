@@ -32,7 +32,8 @@ int main () {
 
     set(arr, text, cnt, len);
     qsort(arr, cnt, sizeof(String*), comp);
-    //strHeapSort(arr, cnt, comp);
+    /*heapBalanceFirst(arr, cnt, 0, comp);
+    strHeapSort(arr, cnt, comp);*/
 
     output(arr, cnt);
     

@@ -9,4 +9,6 @@ void heapBalance (String* arr, int len, int x, int (*cmp)(const void*, const voi
 
 void heapBalance (String* arr, int len, int x, int (*cmp)(const void*, const void*));
 
+void heapBalanceFirst (String* arr, int len, int x, int (*cmp)(const void*, const void*));
+
 #endif

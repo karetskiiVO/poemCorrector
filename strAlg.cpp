@@ -38,14 +38,17 @@ void heapBalance (String* arr, int len, int x, int (*cmp)(const void*, const voi
         return;
     }
 
-    heapBalance(arr, len, x1, cmp);
-    heapBalance(arr, len, x2, cmp);
-    
-    if (cmp(&arr[x], &arr[x1]) <= 0) {
-        strSwap(&arr[x], &arr[x1]);
+    int x_max = x;
+
+    if (cmp(&arr[x_max], &arr[x1]) <= 0) {
+        x_max = x1;
     }
-    if (cmp(&arr[x], &arr[x1]) <= 0) {
-        strSwap(&arr[x], &arr[x2]);
+    if (cmp(&arr[x_max], &arr[x2]) <= 0) {
+        x_max = x2;
     }
+
+    strSwap(&arr[x], &arr[x_max]);
+
+    heapBalance(arr, len, x_max, cmp);    
 }
 

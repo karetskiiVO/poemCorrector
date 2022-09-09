@@ -74,25 +74,20 @@ int strCmp (const String s1, const String s2) {
     
     String buf1 = s1, buf2 = s2;
 
-    while (*buf1 != NULLBYTE && *buf2 != NULLBYTE) {
-        if (!(*buf1 != NULLBYTE && *buf2 != NULLBYTE)) {
-            if (!(*buf1 != NULLBYTE || *buf2 != NULLBYTE)) {
+    while (*buf1 != NULLBYTE || *buf2 != NULLBYTE) {
+        if (*buf1 == '(' || *buf1 == '"' || *buf1 == ')' || *buf1 == '-' || *buf1 == ' ') {
+            buf1++;
+        } else if (*buf2 == '(' || *buf2 == '"' || *buf2 == ')' || *buf2 == '-' || *buf2 == ' ') {
+            buf2++;
+        } else {
+            if (*buf1 != *buf2) {
                 return tolower(*buf1) - tolower(*buf2);
             }
 
-            if (*buf1 == '(' || *buf1 == '"' || *buf1 == ')' || *buf1 == '-' || *buf1 == ' ') {
-                buf1++;
-            } else if (*buf2 == '(' || *buf2 == '"' || *buf2 == ')' || *buf2 == '-' || *buf2 == ' ') {
-                buf2++;
-            } else {
-                if (*buf1 != *buf2) {
-                    return tolower(*buf1) - tolower(*buf2);
-                }
-
-                buf1++;
-                buf2++;
-            }
+            buf1++;
+            buf2++;
         }
+
     }
     /*for (int i = 0; s1[i] != NULLBYTE || s2[i] != NULLBYTE; i++) { // segmentation in for 
         if (!(s1[i] != NULLBYTE && s2[i] != NULLBYTE)) {

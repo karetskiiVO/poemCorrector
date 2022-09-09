@@ -76,7 +76,7 @@ int slice (String const str, int* len) {
             }
             str[i - delta] = str[i];
         } else {
-            if (str[i] == ' ' || str[i] == '\0' || str[i] == '\n' || str[i] == '\t' || str[i] == '*') {
+            if (str[i] == ' ' || str[i] == '\0' || str[i] == '\n' || str[i] == '\t' || str[i] == '*' || str[i] == '.') {
                 delta++;
             } else {
                 str[i - delta] = str[i];

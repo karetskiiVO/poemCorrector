@@ -72,7 +72,8 @@ char* strrChr (const String str, int ch) {
 int strCmp (const String s1, const String s2) {
     assert(s1 != NULL && s2 != NULL && "the string mustnt be NULL\n");
     
-    String buf1 = s1, buf2 = s2;
+    String buf1 = s1;
+    String buf2 = s2;
 
     while (*buf1 != NULLBYTE || *buf2 != NULLBYTE) {
         if (*buf1 == '(' || *buf1 == '"' || *buf1 == ')' || *buf1 == '-' || *buf1 == ' ') {
@@ -89,15 +90,33 @@ int strCmp (const String s1, const String s2) {
         }
 
     }
-    /*for (int i = 0; s1[i] != NULLBYTE || s2[i] != NULLBYTE; i++) { // segmentation in for 
-        if (!(s1[i] != NULLBYTE && s2[i] != NULLBYTE)) {
-            return tolower(s1[i]) - tolower(s2[i]); 
-        }
-        if (s1[i] != s2[i]) {
-            return tolower(s1[i]) - tolower(s2[i]);
-        }
-    }*/
+    return 0;
+}
 
+int strCmpRev (const String s1, const String s2) {
+    assert(s1 != NULL && s2 != NULL && "the string mustnt be NULL");
+    
+    String buf1 = s1 + strLen(s1) - 1;
+    String buf2 = s2 + strLen(s2) - 1;
+
+    while (buf1 - s1 >= 0 || buf2 - s2 >= 0) {
+        if (*buf1 == '(' || *buf1 == '"' || *buf1 == ')' || *buf1 == '-' || *buf1 == ' ' 
+            || *buf1 == '!' || *buf1 == '.' || *buf1 == ',' || *buf1 == '?' || *buf1 == ':' || *buf1 == ';') {
+            buf1--;
+        } else if (*buf2 == '(' || *buf2 == '"' || *buf2 == ')' || *buf2 == '-' || *buf2 == ' '
+            || *buf2 == '!' || *buf2 == '.' || *buf2 == ',' || *buf2 == '?' || *buf2 == ':' || *buf2 == ';') {
+            buf2--;
+        } else {
+            if (*buf1 != *buf2) {
+                return tolower(*buf1) - tolower(*buf2);
+            }
+
+            buf1--;
+            buf2--;
+        }
+
+    }
+    return strLen(s1) - strLen(s2);
     return 0;
 }
 

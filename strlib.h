@@ -19,4 +19,6 @@ String strCat (String s1, const String s2);
 
 void strSwap (String s1, String s2, String buf);
 
+int strCmpRev (const String s1, const String s2);
+
 #endif// strlib.h

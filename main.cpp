@@ -18,11 +18,11 @@ void output (String* arr, int cnt);
 int slice (String str, int* len);
 int comp (const void* a, const void* b);
 void set(String* arr, String str, int cnt, int len);
+int compRev (const void* a, const void* b);
 
 int main () {
     int len = 0, cnt = 0;
 
-    setlocale(LC_CTYPE, "rus");
     input(&text, &len);
 
     cnt = slice(text, &len);
@@ -31,12 +31,15 @@ int main () {
     arr = (String*)malloc(cnt * sizeof(String*));
 
     set(arr, text, cnt, len);
-    qsort(arr, cnt, sizeof(String*), comp);
-    /*heapBalanceFirst(arr, cnt, 0, comp);
-    strHeapSort(arr, cnt, comp);*/
+    //qsort(arr, cnt, sizeof(String*), comp);
+
+    //output(arr, cnt);
+
+    strHeapSort(arr, cnt, sizeof(String), compRev);
 
     output(arr, cnt);
     
+    free(text);
     return 0;
 }
 
@@ -92,6 +95,10 @@ int slice (String const str, int* len) {
 
 int comp (const void* a, const void* b) {
     return strCmp(*((String*)a), *((String*)b));
+}
+
+int compRev (const void* a, const void* b) {
+    return strCmpRev(*((String*)a), *((String*)b));
 }
 
 void set(String* arr, String str, int cnt, int len) {

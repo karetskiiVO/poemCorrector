@@ -4,26 +4,31 @@
 #include <stdio.h>
 #include <limits.h>
 
-void strSwap (String* a,String* b) {
-    String buf = NULL;
-    buf = *a;
-    *a  = *b;
-    *b  = buf;
+void strSwap (void* a, void* b) {
+    String buf    = *((String*)a);
+    *((String*)a) = *((String*)b);
+    *((String*)b) = buf;
 }
 
-void strHeapSort (String* arr, int len, int (*cmp)(const void*, const void*)) {
+void strHeapSort (void* arr, int len, int sizeEl, int (*cmp)(const void*, const void*)) {
+    heapBalanceFirst(arr, len, sizeEl, 0, cmp);
+    strHeapSortAlg(arr, len, sizeEl, cmp);
+}
+
+void strHeapSortAlg (void* arr, int len, int sizeEl, int (*cmp)(const void*, const void*)) {
     if (len == 1) {
         return;
     }
+    
+    heapBalance(arr, len, 0, sizeEl, cmp);
+    
+    len--;
+    strSwap(arr, (void*)((char*)arr + sizeEl * len));
 
-    heapBalance(arr, len, 0, cmp);
-
-    strSwap(&arr[0], &arr[--len]);
-
-    strHeapSort(arr, len, cmp);
+    strHeapSortAlg(arr, len, sizeEl, cmp);
 }
 
-void heapBalance (String* arr, int len, int x, int (*cmp)(const void*, const void*)) {
+void heapBalance (void* arr, int len, int sizeEl, int x, int (*cmp)(const void*, const void*)) {
     int x1 = 2 * x + 1;
     int x2 = 2 * x + 2;
 
@@ -32,28 +37,28 @@ void heapBalance (String* arr, int len, int x, int (*cmp)(const void*, const voi
     }
 
     if (x2 >= len) {
-        if (cmp(&arr[x], &arr[x1]) <=0){
-            strSwap(&arr[x], &arr[x1]);
+        if (cmp((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x1 * sizeEl)) <= 0) {
+            strSwap((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x1 * sizeEl));
         }
         return;
     }
 
     int x_max = x;
 
-    if (cmp(&arr[x_max], &arr[x1]) <= 0) {
+    if (cmp((void*)((char*)arr + x_max * sizeEl), (void*)((char*)arr + x1 * sizeEl)) <= 0) {
         x_max = x1;
     }
-    if (cmp(&arr[x_max], &arr[x2]) <= 0) {
+    if (cmp((void*)((char*)arr + x_max * sizeEl), (void*)((char*)arr + x2 * sizeEl)) <= 0) {
         x_max = x2;
     }
 
     if (x_max != x) {
-        strSwap(&arr[x], &arr[x_max]);  
-        heapBalance(arr, len, x_max, cmp);  
+        strSwap((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x_max * sizeEl));  
+        heapBalance(arr, len, sizeEl, x_max, cmp);  
     }
 }
 
-void heapBalanceFirst (String* arr, int len, int x, int (*cmp)(const void*, const void*)) {
+void heapBalanceFirst (void* arr, int len, int sizeEl, int x, int (*cmp)(const void*, const void*)) {
     int x1 = 2 * x + 1;
     int x2 = 2 * x + 2;
 
@@ -62,27 +67,27 @@ void heapBalanceFirst (String* arr, int len, int x, int (*cmp)(const void*, cons
     }
 
     if (x2 >= len) {
-        if (cmp(&arr[x], &arr[x1]) <=0){
-            strSwap(&arr[x], &arr[x1]);
+        if (cmp((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x1 * sizeEl)) <=0){
+            strSwap((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x1 * sizeEl));
         }
         return;
     }
 
     int x_max = x;
 
-    heapBalanceFirst(arr, len, x1, cmp);
-    heapBalanceFirst(arr, len, x2, cmp);
+    heapBalanceFirst(arr, len, sizeEl, x1, cmp);
+    heapBalanceFirst(arr, len, sizeEl, x2, cmp);
 
-    if (cmp(&arr[x_max], &arr[x1]) <= 0) {
+    if (cmp((void*)((char*)arr + x_max * sizeEl), (void*)((char*)arr + x1 * sizeEl)) <= 0) {
         x_max = x1;
     }
-    if (cmp(&arr[x_max], &arr[x2]) <= 0) {
+    if (cmp((void*)((char*)arr + x_max * sizeEl), (void*)((char*)arr + x2 * sizeEl)) <= 0) {
         x_max = x2;
     }
 
     if (x_max != x) {
-        strSwap(&arr[x], &arr[x_max]); 
+        strSwap((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x_max * sizeEl)); 
 
-        heapBalanceFirst (arr, len, x_max, cmp);
+        heapBalanceFirst (arr, len, sizeEl, x_max, cmp);
     }
 }

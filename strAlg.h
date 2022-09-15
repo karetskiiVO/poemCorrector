@@ -3,12 +3,12 @@
 
 #include "strlib.h"
 
-void strHeapSort (String* arr, int len, int (*cmp)(const void*, const void*));
+void strHeapSort (void* arr, int len, int sizeEl, int (*cmp)(const void*, const void*));
 
-void heapBalance (String* arr, int len, int x, int (*cmp)(const void*, const void*));
+void strHeapSortAlg (void* arr, int len, int sizeEl, int (*cmp)(const void*, const void*));
 
-void heapBalance (String* arr, int len, int x, int (*cmp)(const void*, const void*));
+void heapBalance (void* arr, int len, int sizeEl, int x, int (*cmp)(const void*, const void*));
 
-void heapBalanceFirst (String* arr, int len, int x, int (*cmp)(const void*, const void*));
+void heapBalanceFirst (void* arr, int len, int sizeEl, int x, int (*cmp)(const void*, const void*));
 
 #endif

@@ -21,7 +21,13 @@ void strHeapSortAlg (void* arr, int len, int sizeEl, int (*cmp)(const void*, con
     }
     
     heapBalance(arr, len, 0, sizeEl, cmp);
-    
+
+    /*for (int i = 0; i < len; i++) {
+        printf("%s ", ((String*)arr)[i]);
+    }
+
+    printf("\n");*/
+
     len--;
     strSwap(arr, (void*)((char*)arr + sizeEl * len));
 
@@ -67,7 +73,7 @@ void heapBalanceFirst (void* arr, int len, int sizeEl, int x, int (*cmp)(const v
     }
 
     if (x2 >= len) {
-        if (cmp((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x1 * sizeEl)) <=0){
+        if (cmp((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x1 * sizeEl)) <= 0) {
             strSwap((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x1 * sizeEl));
         }
         return;

@@ -117,7 +117,6 @@ int strCmpRev (const String s1, const String s2) {
 
     }
     return strLen(s1) - strLen(s2);
-    return 0;
 }
 
 String strCat (String s1, const String s2) {

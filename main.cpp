@@ -10,7 +10,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 
-const char* filename = "input.txt";
+const char* filename = "input1.txt";
 String text = NULL;
 
 void input (String* str, int* len);
@@ -35,7 +35,7 @@ int main () {
 
     //output(arr, cnt);
 
-    strHeapSort(arr, cnt, sizeof(String), compRev);
+    strHeapSort(arr, cnt, sizeof(String), comp);
 
     output(arr, cnt);
     

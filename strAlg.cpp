@@ -1,13 +1,14 @@
 #include "strAlg.h"
 #include "strlib.h"
+#include "poemMaker.h"
 
 #include <stdio.h>
 #include <limits.h>
 
 void strSwap (void* a, void* b) {
-    String buf    = *((String*)a);
-    *((String*)a) = *((String*)b);
-    *((String*)b) = buf;
+    poemString buf    = *((poemString*)a);
+    *((poemString*)a) = *((poemString*)b);
+    *((poemString*)b) = buf;
 }
 
 void strHeapSort (void* arr, int len, int sizeEl, int (*cmp)(const void*, const void*)) {
@@ -20,13 +21,7 @@ void strHeapSortAlg (void* arr, int len, int sizeEl, int (*cmp)(const void*, con
         return;
     }
     
-    heapBalance(arr, len, 0, sizeEl, cmp);
-
-    /*for (int i = 0; i < len; i++) {
-        printf("%s ", ((String*)arr)[i]);
-    }
-
-    printf("\n");*/
+    heapBalance(arr, len, sizeEl, 0, cmp);
 
     len--;
     strSwap(arr, (void*)((char*)arr + sizeEl * len));

@@ -2,10 +2,10 @@
 CC = g++
  
 #flags:
-CFLAGS  = -g -Wall
+CFLAGS  = -g -Wall 
 
 #sources of input
-SOURCES = main.cpp  strAlg.cpp  strlib.cpp
+SOURCES = main.cpp  strAlg.cpp  strlib.cpp  poemMaker.cpp
 
 #sources of output
 EXECUTABLE = corrector

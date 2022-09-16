@@ -123,24 +123,22 @@ int strCmp (const String s1, const String s2) {
 
 int strCmpRev (const poemString s1, const poemString s2) {
     assert(s1.s != NULL && s2.s != NULL && "the string mustnt be NULL");
-    
-    String buf1 = s1.s + s1.len - 1;
-    String buf2 = s2.s + s2.len - 1;
 
-    while (buf1 - s1.s >= 0 || buf2 - s2.s >= 0) {
-        if (isEnable(*buf1)) {
+    int buf1 = s1.len - 1;
+    int buf2 = s2.len - 1;
+
+    while ((buf1 >= 0) && (buf2 >= 0)) {
+        if (isEnable(s1.s[buf1])) {
             buf1--;
-        } else if (isEnable(*buf2)) {
+        } else if (isEnable(s2.s[buf2])) {
             buf2--;
         } else {
-            if (*buf1 != *buf2) {
-                return tolower(*buf1) - tolower(*buf2);
+            if (tolower(s1.s[buf1]) != tolower(s1.s[buf2])) {
+                return tolower(s1.s[buf1]) - tolower(s2.s[buf2]);
             }
-
             buf1--;
             buf2--;
         }
-
     }
     return s1.len - s2.len;
 }

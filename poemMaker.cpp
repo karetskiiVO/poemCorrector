@@ -71,15 +71,19 @@ int compRev (const void* a, const void* b) {
 
 void set(poemString* arr, String str, int cnt, int len) {
     int iter = 0;
+    int d = 0;
     bool isonLine = true;
     for (int i = 0; i < len && iter < cnt; i++) {
         if (isonLine) {
             arr[iter++].s = str + i;
+            d = 0;
             isonLine = false;
         }
         if (str[i] == '\0') {
-            arr[iter].len = str - arr[iter].s + i;
+            arr[iter].len = d;
+            d = 0;
             isonLine = true;
         }
+        d++;
     }
 }

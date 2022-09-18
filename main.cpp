@@ -19,18 +19,18 @@ int main () {
     arr = (poemString*)calloc(cnt, sizeof(poemString));
 
     set(arr, text, cnt, len);
-    qsort(arr, 5, sizeof(poemString), compRev);
-
-    /*for (int i = 0; i < cnt; i++) {
-        printf("%d  ", strCmpRev(arr[i], arr[i + 1]));
-    }*/
+    //qsort(arr, 5, sizeof(poemString), compRev);
 
     //output(arr, cnt);
 
     //strHeapSort(arr, cnt, sizeof(poemString), compRev);
 
-    output(arr, 5);
+    //output(arr, cnt);
     
+    for (int i = 0; i < cnt; i++) {
+        printf("%d %s\n", strLen((arr + i)->s), (arr + i)->s);
+    }
+
     free(text);
     return 0;
 }

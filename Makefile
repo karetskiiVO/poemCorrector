@@ -1,14 +1,14 @@
 #the compiler
-CC = g++
+CC := g++
  
 #flags:
-CFLAGS  = -g -Wall 
+CFLAGS := -g -Wall 
 
 #sources of input
-SOURCES = main.cpp  strAlg.cpp  strlib.cpp  poemMaker.cpp
+SOURCES := main.cpp  strAlg.cpp  strlib.cpp  poemMaker.cpp
 
 #sources of output
-EXECUTABLE = corrector
+EXECUTABLE := corrector
 
 all:
 	$(CC) $(SOURCES) $(CFLAGS) -MD -o $(EXECUTABLE) -lm

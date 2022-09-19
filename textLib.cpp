@@ -20,6 +20,16 @@ bool isSkipped (char ch) {
     return false;
 }
 
+bool isUsless (char ch) {
+    const char less[] = " \0\n\t\r*.";
+    for (int i = 0; less[i] != '\0'; i++) {
+        if (less[i] == ch) {
+            return true;
+        }
+    }
+    return false;
+}
+
 int slice (String const text, int* const len) {
     assert(text != NULL && "pointers mustn't be NULL");
 
@@ -36,7 +46,7 @@ int slice (String const text, int* const len) {
             }
             text[i - delta] = text[i];
         } else {
-            if (text[i] == ' ' || text[i] == '\0' || text[i] == '\n' || text[i] == '\t' || text[i] == '*' || text[i] == '.' || text[i] == '\r') {
+            if (isUsless(text[i])) {
                 delta++;
             } else {
                 text[i - delta] = text[i];
@@ -92,7 +102,7 @@ void intput (const char* stream, String* text, poemString** strarr, int* textlen
     *text = (String)calloc(*textlen, sizeof(char));
 
     assert(*text != NULL && "not enought memory");
-    assert((size_t)*textlen != fread(*text, sizeof(char), *textlen, file) && "Error in input");
+    assert(*textlen <= (int)fread(*text, sizeof(char), *textlen, file) && "Error in input(not enought memory)");
     fclose(file);
 
     *strarrlen = slice(*text, textlen);
@@ -105,7 +115,8 @@ void intput (const char* stream, String* text, poemString** strarr, int* textlen
 
 void output (const char* stream, poemString* strarr, int len) {
     FILE* file = fopen(stream, "a");
-
+    assert(file != NULL && "error in file");
+    
     for (int i = 0; i < len; i++) {
         for (int j = 0; j < strarr[i].len; j++) {
             putc(strarr[i].str[j], file);
@@ -119,7 +130,7 @@ void output (const char* stream, poemString* strarr, int len) {
 
 void outputText (const char* stream, const String strarr) {
     FILE* file = fopen(stream, "a");
-
+    assert(file != NULL && "error in file");
     fprintf(file, "%s\n\n", strarr);
 
     fclose(file);
@@ -185,5 +196,7 @@ int strCompRev (const void* fToComp, const void* sToComp) {
 
 void clearFile (const char* stream) {
     FILE* file = fopen(stream, "w");
+    assert(file != NULL && "error in file");
+
     fclose(file);
 }

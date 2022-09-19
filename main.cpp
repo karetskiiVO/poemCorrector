@@ -1,36 +1,30 @@
-#include "strlib.h"
-#include "strAlg.h"
-#include "poemMaker.h"
+#include "textLib.h"
+#include "algorithmics.h"
 
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
-const char* filename = "input.txt";
-String text = NULL;
+const char* inputFile  = "input.txt";
+const char* outputFile = "output.txt";
 
 int main () {
-    int len = 0, cnt = 0;
+    String originaltext = NULL;
+    poemString* poem    = NULL;
 
-    input(filename, &text, &len);
-
-    cnt = slice(text, &len);
-
-    poemString* arr = NULL;
-    arr = (poemString*)calloc(cnt, sizeof(poemString));
-
-    set(arr, text, cnt, len);
-    //qsort(arr, 5, sizeof(poemString), compRev);
-
-    //output(arr, cnt);
-
-    //strHeapSort(arr, cnt, sizeof(poemString), compRev);
-
-    //output(arr, cnt);
+    int textlen = 0;
+    int poemLen = 0;
     
-    for (int i = 0; i < cnt; i++) {
-        printf("%d %s\n", strLen((arr + i)->s), (arr + i)->s);
-    }
 
-    free(text);
+    intput(inputFile, &originaltext, &poem, &textlen, &poemLen);
+    clearFile(outputFile);
+
+    qsort(poem, poemLen, sizeof(poemString), strComp);
+    output(outputFile, poem, poemLen);
+
+    heapSort(poem, poemLen, sizeof(poemString), strCompRev);
+    output(outputFile, poem, poemLen);
+
+    outputText(outputFile, originaltext);
+
     return 0;
 }

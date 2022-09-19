@@ -5,7 +5,7 @@ CC := g++
 CFLAGS := -g -Wall 
 
 #sources of input
-SOURCES := main.cpp  strAlg.cpp  strlib.cpp  poemMaker.cpp
+SOURCES := main.cpp  textLib.cpp  algorithmics.cpp
 
 #sources of output
 EXECUTABLE := corrector

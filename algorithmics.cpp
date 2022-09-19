@@ -1,32 +1,15 @@
-#include "strAlg.h"
-#include "strlib.h"
-#include "poemMaker.h"
+#include "algorithmics.h"
 
+#include <assert.h>
 #include <stdio.h>
-#include <limits.h>
 
-void strSwap (void* a, void* b) {
-    poemString buf    = *((poemString*)a);
-    *((poemString*)a) = *((poemString*)b);
-    *((poemString*)b) = buf;
-}
-
-void strHeapSort (void* arr, int len, int sizeEl, int (*cmp)(const void*, const void*)) {
-    heapBalanceFirst(arr, len, sizeEl, 0, cmp);
-    strHeapSortAlg(arr, len, sizeEl, cmp);
-}
-
-void strHeapSortAlg (void* arr, int len, int sizeEl, int (*cmp)(const void*, const void*)) {
-    if (len == 1) {
-        return;
+void Swap (const void* a, const void* b, int sizeEl) {
+    char buf = 0;
+    for(int i = 0; i < sizeEl; i++) {
+        buf = *((char*)a + i);
+        *((char*)a + i) = *((char*)b + i);
+        *((char*)b + i) = buf;
     }
-    
-    heapBalance(arr, len, sizeEl, 0, cmp);
-
-    len--;
-    strSwap(arr, (void*)((char*)arr + sizeEl * len));
-
-    strHeapSortAlg(arr, len, sizeEl, cmp);
 }
 
 void heapBalance (void* arr, int len, int sizeEl, int x, int (*cmp)(const void*, const void*)) {
@@ -39,7 +22,7 @@ void heapBalance (void* arr, int len, int sizeEl, int x, int (*cmp)(const void*,
 
     if (x2 >= len) {
         if (cmp((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x1 * sizeEl)) <= 0) {
-            strSwap((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x1 * sizeEl));
+            Swap((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x1 * sizeEl), sizeEl);
         }
         return;
     }
@@ -54,9 +37,22 @@ void heapBalance (void* arr, int len, int sizeEl, int x, int (*cmp)(const void*,
     }
 
     if (x_max != x) {
-        strSwap((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x_max * sizeEl));  
+        Swap((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x_max * sizeEl), sizeEl);  
         heapBalance(arr, len, sizeEl, x_max, cmp);  
     }
+}
+
+void HeapSortAlg (void* arr, int len, int sizeEl, int (*cmp)(const void*, const void*)) {
+    if (len == 1) {
+        return;
+    }
+    
+    heapBalance(arr, len, sizeEl, 0, cmp);
+
+    len--;
+    Swap(arr, (void*)((char*)arr + sizeEl * len), sizeEl);
+
+    HeapSortAlg(arr, len, sizeEl, cmp);
 }
 
 void heapBalanceFirst (void* arr, int len, int sizeEl, int x, int (*cmp)(const void*, const void*)) {
@@ -69,7 +65,7 @@ void heapBalanceFirst (void* arr, int len, int sizeEl, int x, int (*cmp)(const v
 
     if (x2 >= len) {
         if (cmp((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x1 * sizeEl)) <= 0) {
-            strSwap((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x1 * sizeEl));
+            Swap((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x1 * sizeEl), sizeEl);
         }
         return;
     }
@@ -87,8 +83,16 @@ void heapBalanceFirst (void* arr, int len, int sizeEl, int x, int (*cmp)(const v
     }
 
     if (x_max != x) {
-        strSwap((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x_max * sizeEl)); 
+        Swap((void*)((char*)arr + x * sizeEl), (void*)((char*)arr + x_max * sizeEl), sizeEl); 
 
         heapBalanceFirst (arr, len, sizeEl, x_max, cmp);
     }
+}
+
+void heapSort (void* arr, int len, int sizeEl, int (*cmp)(const void*, const void*)) {
+    assert(arr != NULL && "all pointers mustn't be NULL");
+    assert(cmp != NULL && "no such function");
+
+    heapBalanceFirst(arr, len, sizeEl, 0, cmp);
+    HeapSortAlg(arr, len, sizeEl, cmp);
 }

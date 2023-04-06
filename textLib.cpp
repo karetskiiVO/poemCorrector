@@ -10,8 +10,8 @@
 #include <sys/stat.h>
 #include <ctype.h>
 
-bool isSkipped (char ch) {
-    const char less[] = "().,<>/?!!\"\n\t_:;{}[]#1234567890‘’ -";
+static bool isSkipped (char ch) {
+    const char less[] = "().,<>/?!!\"\n\t_:;{}[]#1234567890‘’…«» -";
     for (int i = 0; less[i] != '\0'; i++) {
         if (less[i] == ch) {
             return true;
@@ -20,8 +20,8 @@ bool isSkipped (char ch) {
     return false;
 }
 
-bool isUsless (char ch) {
-    const char less[] = " \0\n\t\r*.";
+static bool isUsless (char ch) {
+    const char less[] = " \n\t\r*.=…";
     for (int i = 0; less[i] != '\0'; i++) {
         if (less[i] == ch) {
             return true;
@@ -30,7 +30,7 @@ bool isUsless (char ch) {
     return false;
 }
 
-int slice (String const text, int* const len) {
+static int slice (String const text, int* const len) {
     assert(text != NULL && "pointers mustn't be NULL");
 
     int delta = 0;
@@ -64,7 +64,7 @@ int slice (String const text, int* const len) {
     return cnt;
 }
 
-void set (const String text, poemString* const arr, const int textlen, const int len) {
+static void set (const String text, poemString* const arr, const int textlen, const int len) {
     String charptr = text;
     arr[0].str = text;
     
@@ -91,7 +91,7 @@ void set (const String text, poemString* const arr, const int textlen, const int
     }
 }
 
-void intput (const char* stream, String* text, poemString** strarr, int* textlen, int* strarrlen) {
+void readText (const char* stream, String* text, poemString** strarr, int* textlen, int* strarrlen) {
     FILE* file = fopen(stream, "r");
     assert(file != NULL && "No such file");
 
@@ -113,14 +113,13 @@ void intput (const char* stream, String* text, poemString** strarr, int* textlen
     set(*text, *strarr, *textlen, *strarrlen);
 }
 
-void output (const char* stream, poemString* strarr, int len) {
-    FILE* file = fopen(stream, "a");
+void write (const char* stream, poemString* strarr, int len, const char* mode) {
+    FILE* file = fopen(stream, mode);
     assert(file != NULL && "error in file");
-    
+    assert(strarr != NULL && "arror in array");
+
     for (int i = 0; i < len; i++) {
-        for (int j = 0; j < strarr[i].len; j++) {
-            putc(strarr[i].str[j], file);
-        }
+        fwrite(strarr[i].str, sizeof(char), strarr[i].len, file);
         putc('\n', file);
     }
 
@@ -128,10 +127,12 @@ void output (const char* stream, poemString* strarr, int len) {
     fclose(file);
 }
 
-void outputText (const char* stream, const String strarr) {
+void writeText (const char* stream, const String strarr, int len) {
     FILE* file = fopen(stream, "a");
     assert(file != NULL && "error in file");
-    fprintf(file, "%s\n\n", strarr);
+    assert(strarr != NULL && "all pointers mustn't be NULL");
+
+    fwrite(strarr, sizeof(char), len, file);
 
     fclose(file);
 }

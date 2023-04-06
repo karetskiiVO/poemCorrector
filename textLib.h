@@ -21,7 +21,7 @@ typedef struct {
  * @param [out] textlen   - pointer to int witch contains length of text
  * @param [out] strarrlen - pointer to int witch contains length of strarr
  */
-void intput (const char* stream, String* text, poemString** strarr, int* textlen, int* strarrlen);
+void readText (const char* stream, String* text, poemString** strarr, int* textlen, int* strarrlen);
 
 /**
  * @brief this function output data
@@ -29,8 +29,9 @@ void intput (const char* stream, String* text, poemString** strarr, int* textlen
  * @param [in] stream - name of output file
  * @param [in] strarr - pointer to array witch contains structs(watch note to new types)
  * @param [in] len    - length of strar
+ * @param [in] mode   - mode to write(see printf)
  */
-void output (const char* stream, poemString* strarr, int len);
+void write (const char* stream, poemString* strarr, int len, const char* mode);
 
 /**
  * @brief this function compre two string
@@ -40,7 +41,7 @@ void output (const char* stream, poemString* strarr, int len);
  * 
  * @return int below 0 if fToComp < sToComp, if 0 fToComp = sToComp, if more 0 fToComp > sToComp
  * 
- * @note in alphabet fron end to begin
+ * @note in alphabet from end to begin
  */
 int strCompRev (const void* fToComp, const void* sToComp);
 
@@ -52,12 +53,12 @@ int strCompRev (const void* fToComp, const void* sToComp);
  * 
  * @return int below 0 if fToComp < sToComp, if 0 fToComp = sToComp, if more 0 fToComp > sToComp
  * 
- * @note in alphabet fron begin to end
+ * @note in alphabet from begin to end
  */
 int strComp (const void* fToComp, const void* sToComp);
 
 /**
- * @brief this function create(clear, if it was) file with name 'stream'
+ * @brief this function creates (clears, if it exists) file with name 'stream'
  * 
  * @param [in] stream - name of file to create(clear)
  */
@@ -68,7 +69,8 @@ void clearFile (const char* stream);
  * 
  * @param [in] stream - name of output file
  * @param [in] text   - pointer to first character in text
+ * @param [in] len    - length of text
  */
-void outputText (const char* stream, const String text);
+void writeText (const char* stream, const String text, int len);
 
 #endif // TEXTLIB

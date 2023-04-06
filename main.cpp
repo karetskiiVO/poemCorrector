@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-const char* inputFile  = "input.txt";
+const char* inputFile  = "input.txt"; // static
 const char* outputFile = "output.txt";
 
 int main () {
@@ -13,18 +13,20 @@ int main () {
 
     int textlen = 0;
     int poemLen = 0;
-    
 
-    intput(inputFile, &originaltext, &poem, &textlen, &poemLen);
-    clearFile(outputFile);
+    readText(inputFile, &originaltext, &poem, &textlen, &poemLen);
+    clearFile(outputFile); // del
 
     qsort(poem, poemLen, sizeof(poemString), strComp);
-    output(outputFile, poem, poemLen);
+    write(outputFile, poem, poemLen, "w");
 
     heapSort(poem, poemLen, sizeof(poemString), strCompRev);
-    output(outputFile, poem, poemLen);
+    write(outputFile, poem, poemLen, "a");
 
-    outputText(outputFile, originaltext);
+    writeText(outputFile, originaltext, textlen);
+
+    free(originaltext);
+    free(poem);
 
     return 0;
 }

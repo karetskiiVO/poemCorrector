@@ -2,7 +2,7 @@
 CC := g++
  
 #flags:
-CFLAGS := -g -Wall 
+CFLAGS := -g -Wall -Wextra -fsanitize=address
 
 #sources of input
 SOURCES := main.cpp  textLib.cpp  algorithmics.cpp

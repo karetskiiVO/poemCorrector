@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <stdio.h>
 
-void Swap (const void* a, const void* b, int sizeEl) {
+static void Swap (const void* a, const void* b, int sizeEl) {
     char buf = 0;
     for(int i = 0; i < sizeEl; i++) {
         buf = *((char*)a + i);
@@ -12,7 +12,7 @@ void Swap (const void* a, const void* b, int sizeEl) {
     }
 }
 
-void heapBalance (void* arr, int len, int sizeEl, int x, int (*cmp)(const void*, const void*)) {
+static void heapBalance (void* arr, int len, int sizeEl, int x, int (*cmp)(const void*, const void*)) {
     int x1 = 2 * x + 1;
     int x2 = 2 * x + 2;
 
@@ -42,7 +42,7 @@ void heapBalance (void* arr, int len, int sizeEl, int x, int (*cmp)(const void*,
     }
 }
 
-void HeapSortAlg (void* arr, int len, int sizeEl, int (*cmp)(const void*, const void*)) {
+static void HeapSortAlg (void* arr, int len, int sizeEl, int (*cmp)(const void*, const void*)) {
     if (len == 1) {
         return;
     }
@@ -55,7 +55,7 @@ void HeapSortAlg (void* arr, int len, int sizeEl, int (*cmp)(const void*, const 
     HeapSortAlg(arr, len, sizeEl, cmp);
 }
 
-void heapBalanceFirst (void* arr, int len, int sizeEl, int x, int (*cmp)(const void*, const void*)) {
+static void heapBalanceFirst (void* arr, int len, int sizeEl, int x, int (*cmp)(const void*, const void*)) {
     int x1 = 2 * x + 1;
     int x2 = 2 * x + 2;
 
